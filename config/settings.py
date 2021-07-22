@@ -99,12 +99,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "staticfiles"),
+]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -115,7 +121,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 ACCOUNT_FORMS = {
-    'signup': 'accounts.forms.CustomUserCreationForm',
+    'signup': 'accounts.forms.UserProfileCreationForm',
 }
 
 # Internationalization
@@ -136,13 +142,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-AUTH_USER_MODEL = 'accounts.CustomUser'
+AUTH_USER_MODEL = 'accounts.UserProfile'
 # all-auth configurations
 SITE_ID = 1
 LOGIN_REDIRECT_URL = 'home'
@@ -157,3 +166,15 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
 # tailwind configurations
 TAILWIND_APP_NAME = 'theme'
+
+# django-storages configurations:
+""" To upload your media files to S3 set """
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+""" To allow django-admin collectstatic to automatically put your static files in your bucket """
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+"""
+Setting AWS_QUERYSTRING_AUTH to False to remove query parameter authentication from generated URLs.
+This can be useful if your S3 buckets are public."""
+AWS_QUERYSTRING_AUTH = False
+"""Your Amazon Web Services storage bucket name, as a string."""
+AWS_STORAGE_BUCKET_NAME = 'rekognispa'

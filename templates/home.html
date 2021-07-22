@@ -4,6 +4,7 @@
 
 {% block content %}
 {% if user.is_authenticated %}
+{{ user.avatar }}
   Hi {{ user.username }}!
   <p><a href="{% url 'account_logout' %}">Log Out</a></p>
 {% else %}
