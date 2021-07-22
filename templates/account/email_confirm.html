@@ -11,7 +11,7 @@ user_display %}
 </p>
 <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
   {% csrf_token %} {{ form.as_p }}
-  <button class="btn btn-primary" type="submit">{% trans 'Confirm' %}</button>
+  <button  type="submit">{% trans 'Confirm' %}</button>
 </form>
 {% else %} {% url 'account_email' as email_url %}
 <p>
