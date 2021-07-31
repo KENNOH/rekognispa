@@ -3,6 +3,8 @@ from django.db import models
 
 
 class UserProfile(AbstractUser):
-    pass 
+    pass
+    
+
     def __str__(self):
         return self.username

@@ -30,10 +30,7 @@ INSTALLED_APPS = [
     # third-party
     'allauth',
     'allauth.account',
-    'tailwind',
     "crispy_forms",
-    "crispy_tailwind",
-    'theme',
     #local
     'accounts'
 ]
@@ -98,18 +95,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "staticfiles"),
-]
-STATICFILES_FINDERS = [
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-]
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
 
 
 AUTHENTICATION_BACKENDS = [
@@ -142,9 +127,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -161,11 +153,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-# crispy-form configurations
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-CRISPY_TEMPLATE_PACK = "tailwind"
-# tailwind configurations
-TAILWIND_APP_NAME = 'theme'
+
 
 # django-storages configurations:
 """ To upload your media files to S3 set """
@@ -178,3 +166,6 @@ This can be useful if your S3 buckets are public."""
 AWS_QUERYSTRING_AUTH = False
 """Your Amazon Web Services storage bucket name, as a string."""
 AWS_STORAGE_BUCKET_NAME = 'rekognispa'
+
+#  django-crispy-forms configurations:
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

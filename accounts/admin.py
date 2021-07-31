@@ -12,5 +12,4 @@ class UserProfileAdmin(UserAdmin):
     model = UserProfile
     list_display = ['email', 'username', 'first_name', 'last_name']
 
-
 admin.site.register(UserProfile, UserProfileAdmin)

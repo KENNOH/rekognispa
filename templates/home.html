@@ -1,15 +1,29 @@
 {% extends '_base.html' %}
-
+{% load static %}
 {% block title %}Home{% endblock %}
-
 {% block content %}
 {% if user.is_authenticated %}
-{{ user.avatar }}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'account_logout' %}">Log Out</a></p>
+Hi {{ user.username }}!
+<p><a href="{% url 'account_logout' %}">Log Out</a></p>
 {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'account_login' %}">Log In</a> |
-  <a href="{% url 'account_signup' %}">Sign Up</a>
+<section class="min-vh-100">
+  <div class="container ">
+    <div class="row">
+      <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+        <img src="{% static 'images/logo.png' %}" alt="" width="50%">
+        <div class="px-2">
+      <ul class="nav navbar-right justify-content-center">
+        <li class="nav-item bg-primary  text-light mx-1 rounded">
+          <a class="nav-link text-light" href="{% url 'account_login' %}">Log In</a>
+        </li>
+        <li class="nav-item bg-primary text-white mx-1 rounded">
+          <a class="nav-link text-light" href="{% url 'account_signup' %}">Register</a>
+        </li>
+      </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endif %}
 {% endblock %}
