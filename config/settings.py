@@ -32,7 +32,10 @@ INSTALLED_APPS = [
     'allauth.account',
     "crispy_forms",
     #local
-    'accounts'
+    'accounts',
+    'face_detection',
+    'pages'
+
 ]
 
 MIDDLEWARE = [
