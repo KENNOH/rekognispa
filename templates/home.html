@@ -2,7 +2,9 @@
 {% load static %}
 {% block title %}Home{% endblock %}
 {% block content %}
+
 {% if user.is_authenticated %}
+{% include '_navbar.html' %}
 Hi {{ user.username }}!
 <p><a href="{% url 'account_logout' %}">Log Out</a></p>
 {% else %}
