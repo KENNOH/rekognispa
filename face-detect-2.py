@@ -8,7 +8,7 @@ result = []
 def detect_faces(photo, bucket):
 
     client=boto3.client('rekognition')
-
+    
     response = client.detect_faces(Image={'S3Object':{'Bucket':bucket,'Name':photo}},Attributes=['ALL'])
 
     print('Detected faces for ' + photo)    
