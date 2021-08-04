@@ -1,0 +1,15 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% if user.is_authenticated %}
+{% include '_navbar.html' %}
+Hi {{ user.username }}!
+<p><a href="{% url 'account_logout' %}">Log Out</a></p>
+ {%for face in faces%}
+ {{face.orignal_image_url}}   
+ {%endfor%}
+{% endif %}
+{% endblock %}
+
