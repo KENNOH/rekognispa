@@ -1,7 +1,8 @@
 import boto3
 import io
-from PIL import Image, ImageDraw, ExifTags, ImageColor
+from PIL import Image, ImageDraw, ImageFont
 import os
+
 
 def show_faces(photo, bucket):
 
@@ -14,7 +15,7 @@ def show_faces(photo, bucket):
     stream = io.BytesIO(s3_response['Body'].read())
     image = Image.open(stream)
 
-    #Call DetectFaces
+    # Call DetectFaces
     response = client.detect_faces(Image={'S3Object': {'Bucket': bucket, 'Name': photo}},
                                    Attributes=['ALL'])
 
@@ -22,23 +23,16 @@ def show_faces(photo, bucket):
     draw = ImageDraw.Draw(image)
 
     # calculate and display bounding boxes for each detected face
-    print('Detected faces for ' + photo)
     for faceDetail in response['FaceDetails']:
-        print("faceDetail", faceDetail.keys())
-        print("faceDetail", faceDetail)
-        print('The detected face is between ' + str(faceDetail['AgeRange']['Low'])
-              + ' and ' + str(faceDetail['AgeRange']['High']) + ' years old')
 
         box = faceDetail['BoundingBox']
         left = imgWidth * box['Left']
         top = imgHeight * box['Top']
         width = imgWidth * box['Width']
         height = imgHeight * box['Height']
-
-        print('Left: ' + '{0:.0f}'.format(left))
-        print('Top: ' + '{0:.0f}'.format(top))
-        print('Face Width: ' + "{0:.0f}".format(width))
-        print('Face Height: ' + "{0:.0f}".format(height))
+        image_label = f"Gender: {faceDetail['Gender']['Value']}, Emotion: {faceDetail['Emotions'][0]['Type']}, Age: {faceDetail['AgeRange']['Low']}"
+        image_title = photo[photo.find('/')+1:photo.find('.')]
+        image_format = image.format
 
         points = (
             (left, top),
@@ -46,13 +40,17 @@ def show_faces(photo, bucket):
             (left + width, top + height),
             (left, top + height),
             (left, top)
-
         )
-        draw.line(points, fill='#00d400', width=2)
+        draw.line(points, fill='#00d400', width=2,)
+
+        draw.text((left, top - 20), image_label, fill="cyan", anchor="ms")
 
         # Alternatively can draw rectangle. However you can't set line width.
-        draw.rectangle([left,top, left + width, top + height], outline='#00d400')
+        draw.rectangle([left, top, left + width, top + height],
+                       outline='black')
 
     # image.show()
+    # image_copy = image.save(image_title, format=image_format)
+    image_copy = image.tobytes()
 
-    return response['FaceDetails']
+    return {"face_details": response['FaceDetails'], "image_copy": image_copy}
