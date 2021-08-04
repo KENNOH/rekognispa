@@ -2,8 +2,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from face_detection.services import show_faces
 import face_detection.models as face_detection_model
-from django.contrib.auth import get_user_model
-
+import os
 class Image(models.Model):
     RECOGNITION_TYPES = (
         ('FACE', 'Face Rekognition'),
