@@ -14,7 +14,7 @@ class ImageForm(forms.ModelForm):
         super(ImageForm, self).__init__(*args, **kwargs)
         # self.fields('image').label = ''
         for visible in self.visible_fields():
-            # setting tag values for image tag in upload image page
+            # setting tag values for image tag in add record page
             if visible.name == 'image':
                 visible.field.widget.attrs['onchange'] = 'readURL(this)'
                 visible.field.widget.attrs['hidden'] = ''
