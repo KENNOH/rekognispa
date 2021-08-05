@@ -12,7 +12,8 @@ class FaceDetectionListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         # getting images owned by current user
         images = Image.objects.filter(user=self.request.user)
-        # getting face rekognition data using related image
-        queryset = FaceDetection.objects.filter(image_fr__in=images)
+        # getting face rekognition data using related image in descending order
+        queryset = FaceDetection.objects.filter(
+            image_fr__in=images).order_by('-image_fr_id')
         return queryset
     
