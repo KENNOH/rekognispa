@@ -30,8 +30,12 @@ INSTALLED_APPS = [
     # third-party
     'allauth',
     'allauth.account',
+    "crispy_forms",
     #local
-    'accounts'
+    'accounts',
+    'face_detection',
+    'pages'
+
 ]
 
 MIDDLEWARE = [
@@ -94,13 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_FINDERS = [
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-]
+
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -109,6 +107,10 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+ACCOUNT_FORMS = {
+    'signup': 'accounts.forms.UserProfileCreationForm',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -128,16 +130,45 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'accounts.CustomUser'
+AUTH_USER_MODEL = 'accounts.UserProfile'
+# all-auth configurations
+SITE_ID = 1
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'account_login'
 ACCOUNT_LOGOUT_REDIRECT = 'account_login'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
+
+
+# django-storages configurations:
+""" To upload your media files to S3 set """
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+""" To allow django-admin collectstatic to automatically put your static files in your bucket """
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+"""
+Setting AWS_QUERYSTRING_AUTH to False to remove query parameter authentication from generated URLs.
+This can be useful if your S3 buckets are public."""
+AWS_QUERYSTRING_AUTH = False
+"""Your Amazon Web Services storage bucket name, as a string."""
+AWS_STORAGE_BUCKET_NAME = 'rekognispa'
+
+#  django-crispy-forms configurations:
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,16 +1,22 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-CustomUser = get_user_model()
+UserProfile = get_user_model()
 
 
-class CustomUserCreationForm(UserChangeForm):
+class UserProfileCreationForm(UserCreationForm):
     class Meta:
-        model = CustomUser
-        fields = ('email', 'username', 'first_name','last_name')
+        model = UserProfile
+        fields = ('first_name', 'last_name', 'username','email')
 
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(UserCreationForm, self).__init__(*args, **kwargs)
 
-class CustomUserChangeForm(UserCreationForm):
+class UserProfileChangeForm(UserChangeForm):
     class Meta:
-        model = CustomUser
-        fields = ('email', 'username', 'first_name','last_name')
+        model = UserProfile
+        fields = ('first_name', 'last_name', 'username', 'email')
+        def __init__(self, *args, **kwargs):
+            self.request = kwargs.pop('request', None)
+            super(UserChangeForm, self).__init__(*args, **kwargs)
