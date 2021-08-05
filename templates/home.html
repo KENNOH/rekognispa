@@ -4,18 +4,11 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% if user.is_authenticated %}
-{% include '_navbar.html' %}
 
 <!-- <p><a href="{% url 'account_logout' %}">Log Out</a></p>
 <p><a href="{% url 'face_list' %}">Face Detection</a></p> -->
-<div class="container">
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %} 
-    {{ form|crispy }}
-    <img id="image-preview" src="" > 
-    <button type="submit">Submit</button>  
-  </form>
-</div>
+{% include '_add_image.html' %}
+
 {% else %}
 <section class="min-vh-100">
   <div class="container ">

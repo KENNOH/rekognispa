@@ -1,0 +1,28 @@
+{% include '_navbar.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+  <div class="container">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %} 
+    <div class="container-fluid mt-5 w-50"  >
+      <div class="text-center p-1">
+        {{ form.image|as_crispy_field }} 
+      </div>
+    <div class="rounded bg-light position-relative my-2" style="height: 45vmin;">
+        <img class="d-block mx-auto"  id="image-preview" style="height: 45vmin;"  > 
+          <label class="custom-file-label position-absolute" style="top:90%; left: 50%; transform: translate(-50%,-50%);" for="id_image">
+            <a  role="button" aria-disabled="true"  
+            class="btn btn-primary rounded" >Upload Image</a>
+          </label>
+        </div>
+      <div class="row">
+        <div class="col-xs-6 col-md-4 .col-xl-4 text-center">{{ form.title|as_crispy_field }} </div>
+        <div class="col-xs-6 col-md-4 .col-xl-4 text-center">{{ form.rekognition_type|as_crispy_field }}</div>
+        <div class="col-xs-12 col-md-4 .col-xl-4 text-center">
+          <button type="submit" class="hover-overlay btn btn-lg my-3 text-light border border-light">Submit</button>  
+        </div>
+      </div>
+    </div>
+  </form>
+</div >
