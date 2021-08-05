@@ -12,5 +12,5 @@ class HomePageView(generic.CreateView):
         # assign current user to image for image ownership
         image = form.save(commit = False)
         image.user = self.request.user
-        image.save()
+        # image.save()
         return super().form_valid(form)
