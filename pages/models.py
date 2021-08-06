@@ -7,7 +7,6 @@ import face_detection.models as face_detection_model
 import os
 
 
-
 class Image(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     RECOGNITION_TYPES = (
@@ -30,20 +29,21 @@ class Image(models.Model):
 
 # performing recognition after saving image
 def save_image(sender, instance, created, **kwargs):
-    photo, bucket = instance.image.name, os.environ.get('S3_BUCKET_NAME')
+    photo, bucket, bucket_url = instance.image.name, os.environ.get(
+        'S3_BUCKET_NAME'), os.environ.get('S3_BUCKET_URL')
     if instance.rekognition_type == 'FACE':
         # for face detection
         rekog_data = show_faces(photo, bucket)
         for rekog_data in rekog_data['face_details']:
 
-            orignal_image_url = os.environ.get('S3_BUCKET_URL')+'/'+photo
-            rekognized_image_url = os.environ.get('S3_BUCKET_URL')+'/'+photo
+            orignal_image_url = bucket_url+'/'+photo
+            rekognized_image_url = bucket_url+'/'+photo
             gender = rekog_data['Gender']['Value']
             age_low = rekog_data['AgeRange']['Low']
             age_high = rekog_data['AgeRange']['High']
             emotion = rekog_data['Emotions'][0]['Type']
 
-            # updating face recognition details in database after get data from AWS rekognition API 
+            # updating face recognition details in database after get data from AWS rekognition API
             face_detection = face_detection_model.FaceDetection(
                 image_fr=instance,
                 rekognized_image_url=rekognized_image_url,
