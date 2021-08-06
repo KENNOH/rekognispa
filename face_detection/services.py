@@ -21,6 +21,8 @@ def show_faces(photo, bucket):
 
     imgWidth, imgHeight = image.size
     draw = ImageDraw.Draw(image)
+    # image.setfont("HelveticaNarrow-Bold", 36)
+
     image_title = photo[photo.rfind('/')+1:photo.find('.')]
     image_format = image.format
 
@@ -42,18 +44,16 @@ def show_faces(photo, bucket):
             (left, top + height),
             (left, top)
         )
-        draw.line(points, fill='#00d400', width=2,)
-
+        draw.line(points, fill='#00d400', width=2)
         draw.text((left, top - 20), image_label, fill="cyan", anchor="ms")
+        for landmark in faceDetail['Landmarks']:
+            x = landmark['X']
+            y = landmark['Y']
+            draw.ellipse((imgWidth*x, imgHeight*y, imgWidth*x+3, imgHeight*y+3), fill='red')
 
-        # Alternatively can draw rectangle. However you can't set line width.
-        draw.rectangle([left, top, left + width, top + height],
-                       outline='black')
-
-    # image.show()
-    # image_copy = image.save(image_title, format=image_format)
     in_mem_file = io.BytesIO()
     image.save(in_mem_file, format=image_format)
     in_mem_file.seek(0)
 
     return {"face_details": response['FaceDetails'], "image": {"stream": in_mem_file, "title": image_title,"format": image_format }}
+    
