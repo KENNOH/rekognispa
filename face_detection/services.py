@@ -21,6 +21,8 @@ def show_faces(photo, bucket):
 
     imgWidth, imgHeight = image.size
     draw = ImageDraw.Draw(image)
+    image_title = photo[photo.rfind('/')+1:photo.find('.')]
+    image_format = image.format
 
     # calculate and display bounding boxes for each detected face
     for faceDetail in response['FaceDetails']:
@@ -31,8 +33,7 @@ def show_faces(photo, bucket):
         width = imgWidth * box['Width']
         height = imgHeight * box['Height']
         image_label = f"Gender: {faceDetail['Gender']['Value']}, Emotion: {faceDetail['Emotions'][0]['Type']}, Age: {faceDetail['AgeRange']['Low']}"
-        image_title = photo[photo.find('/')+1:photo.find('.')]
-        image_format = image.format
+
 
         points = (
             (left, top),
@@ -51,6 +52,8 @@ def show_faces(photo, bucket):
 
     # image.show()
     # image_copy = image.save(image_title, format=image_format)
-    image_copy = image.tobytes()
+    in_mem_file = io.BytesIO()
+    image.save(in_mem_file, format=image_format)
+    in_mem_file.seek(0)
 
-    return {"face_details": response['FaceDetails'], "image_copy": image_copy}
+    return {"face_details": response['FaceDetails'], "image": {"stream": in_mem_file, "title": image_title,"format": image_format }}
