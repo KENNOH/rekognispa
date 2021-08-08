@@ -1,6 +1,5 @@
 from django.db import models
 from pages.models import Image
-# Create your models here.
 
 
 class FaceDetection(models.Model):
@@ -12,6 +11,7 @@ class FaceDetection(models.Model):
     age_high = models.IntegerField(blank=True, null=True)
     emotion = models.CharField(max_length=64)
     # feature = models.CharField(max_length=64)
+
     def __str__(self):
         return f"{self.id}: {self.image_fr}"
 
@@ -29,8 +29,9 @@ class Features(models.Model):
     def __str__(self):
         return f"{self.id}: {self.face_fr}"
 
+
 class BoundingBox(models.Model):
-    fr_feature = models.ForeignKey(Features,on_delete=models.CASCADE)
+    fr_feature = models.ForeignKey(Features, on_delete=models.CASCADE)
     height = models.IntegerField()
     width = models.IntegerField()
     left = models.IntegerField()

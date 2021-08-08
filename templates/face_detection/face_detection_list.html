@@ -12,27 +12,35 @@
             <tr class="text-center">
                 <th scope="col">#</th>
                 <th scope="col">Gender</th>
-                <th scope="col">Age Range</th>
+                <th scope="col">Age</th>
                 <th scope="col">Emotion</th>
                 <th scope="col">Image</th>
+                <th scope="col">More</th>                
             </tr>
         </thead>
         <tbody>
             {%for face in faces%}
-            <tr>
-                <th scope="row" class="text-center">{{forloop.counter }}</th>
-                
-      <td class="text-center">{{face.gender}}</td>
-      <td class="text-center">{{face.age_low}} - {{face.age_high}}</td>
-      <td class="text-center">{{face.emotion}}</td>
-      <td class="text-center">
-          <a href="{{face.rekognized_image_url}}">
-              <img src="{{face.rekognized_image_url}}" alt="{{face.rekognized_image_url}}" width="50px">
-          </a>
-      </td>
-    </tr>
-    {%endfor%}
-  </tbody>
+            <tr class="align-middle" >
+                    <th scope="row" class="text-center">{{forloop.counter }}</th>     
+                    <td class="text-center">{{face.gender}}</td>
+                    <td class="text-center">{{face.age_low}}</td>
+                    <td class="text-center">{{face.emotion}}</td>
+                    <td class="text-center">
+                            <img src="{{face.rekognized_image_url}}" alt="{{face.rekognized_image_url}}" width="50px">
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a href="{%url 'face_detail' face.id%}" target=”_blank” style="text-decoration: none;">
+                            <img src="https://img.icons8.com/material-outlined/24/4a90e2/visible--v1.png"/>
+                        </a>
+                        
+                        <a href="{{face.rekognized_image_url}}" target=”_blank” style="text-decoration: none;">
+                            <img src="https://img.icons8.com/material-outlined/24/4a90e2/download--v1.png"/>                            
+                        </a>
+                    </td>
+            </tr>
+            {%endfor%}
+        </tbody>
   </table>
 </div>
 {% endif %}

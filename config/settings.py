@@ -1,5 +1,10 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+# Load Environment variables from .env
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -172,3 +177,7 @@ AWS_STORAGE_BUCKET_NAME = 'rekognispa'
 
 #  django-crispy-forms configurations:
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+
+
