@@ -140,3 +140,4 @@ cython_debug/
 # django migration
 */migrations/*
 .vscode/launch.json
+data/db/
