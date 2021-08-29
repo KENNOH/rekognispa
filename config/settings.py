@@ -18,7 +18,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '*.rekognispa.tech', "rekognispa.tech"]
+ALLOWED_HOSTS = ['0.0.0.0', 'www.rekognispa.tech', "rekognispa.tech"]
 
 
 # Application definition
