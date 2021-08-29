@@ -1,4 +1,4 @@
-ARG PROJECT_PATH=/src/usr/webapps/rekognispa
+ARG PROJECT_PATH=
 
 FROM python:3
 ENV PYTHONUNBUFFERED=1
