@@ -1,20 +1,18 @@
 version: "3.9"
    
 services:
-  db:
-    image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
   web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/webapps
+    image: heezjee/rekognispa:v1
+    environment: 
+      - SECRET_KEY=${SECRET_KEY}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - S3_BUCKET_URL=${S3_BUCKET_URL}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
     ports:
       - "8000:8000"
-    depends_on:
-      - db
+    command: gunicorn config.wsgi --name=rekognispa --bind=0.0.0.0:8000 --workers=2
+    # volumes:
+      # - ./volumes/rekognispa:/src/usr/webapps/rekognispa/
+    restart: unless-stopped

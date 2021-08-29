@@ -18,7 +18,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', '*.rekognispa.tech', "rekognispa.tech"]
 
 
 # Application definition
@@ -117,7 +117,7 @@ ACCOUNT_FORMS = {
     'signup': 'accounts.forms.UserProfileCreationForm',
 }
 
-# Internationalization
+# Internationalizationrekognispa
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -173,8 +173,7 @@ Setting AWS_QUERYSTRING_AUTH to False to remove query parameter authentication f
 This can be useful if your S3 buckets are public."""
 AWS_QUERYSTRING_AUTH = False
 """Your Amazon Web Services storage bucket name, as a string."""
-AWS_STORAGE_BUCKET_NAME = 'rekognispa'
-
+AWS_STORAGE_BUCKET_NAME =  os.environ.get('S3_BUCKET_NAME')
 #  django-crispy-forms configurations:
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
