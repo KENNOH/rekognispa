@@ -13,8 +13,6 @@ class Image(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     RECOGNITION_TYPES = (
         ('FACE', 'Face Rekognition'),
-        ('OBJECT', 'Object Rekognition'),
-        ('TEXT', 'Text Rekognition'),
     )
 
     title = models.CharField(max_length=200)
