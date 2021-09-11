@@ -1,5 +1,3 @@
-{% if False %}
-
 # Introduction
 
 The goal of this project is to provide web based platform for facial recognition.
