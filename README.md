@@ -28,19 +28,19 @@ Goto: https://rekognispa.tech/
 
 First clone the repository from Github and switch to the new directory:
 
-    $ git clone git@github.com/HeeZJee/rekognispa.git
-    $ cd rekognispa
+    git clone git@github.com/HeeZJee/rekognispa.git
+    cd rekognispa
     
 Activate the virtualenv for your project.
     
 Install project dependencies:
 
-    $ pip install -r requirements.txt
+    pip install -r requirements.txt
     
     
 Then simply apply the migrations:
 
-    $ python manage.py migrate
+    python manage.py migrate
     
 
 You can now run the development server:
