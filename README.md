@@ -20,9 +20,6 @@ The goal of this project is to provide web based platform for facial recognition
 
 # Rekognispa
 
-## Live Demo
-
-Goto: https://rekognispa.tech/
 
 ## Getting Started
 
