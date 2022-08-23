@@ -4,6 +4,7 @@ services:
   nginx-proxy:
     build: ./nginx
     container_name: Nginx-Proxy-Server
+    restart: unless-stopped
     volumes:
       - .:/rekognispa
     ports:
