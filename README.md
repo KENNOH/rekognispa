@@ -59,3 +59,4 @@ You can now run the development server:
 **AWS_DEFAULT_REGION**=[your aws default region]
 
 **AWS_STORAGE_BUCKET_NAME**=[your aws bucket name]
+

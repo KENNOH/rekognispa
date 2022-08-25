@@ -1,0 +1,94 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% if user.is_authenticated %}
+{% include '_navbar.html' %}
+<div class="bg-light container my-4 rounded-3">
+    <h4 class="p-3 text-center text-primary">Face Detection Detail</h4>
+    <div class="p-3 text-center text-dark">
+        <div class="row ">
+            <div class="col-12 col-sm-6">
+                <h4 class="text-dark fw-normal">Orignal Image</p>
+                <img 
+                src="{{face.orignal_image_url}}" 
+                alt="Orignal Image" 
+                class="card-img"
+                >
+            </div>
+            <div class="col-12 col-sm-6">
+                <h4 class="text-dark fw-normal">Rekognized Image</p>
+                <img 
+                src="{{face.rekognized_image_url}}" 
+                alt="Rekognized Image" 
+                class="card-img"
+                >
+            </div>
+        </div>  
+
+        <div class="row text-start">
+            <div class="col-12 col-sm-6">
+                <h4 class="fw-normal">Gender:</h4>
+                <p>{{face.gender}}</p>
+            </div>
+            <div class="col-12 col-sm-6">
+                <h4 class="fw-normal" >Emotion:</h4>
+                <p>{{face.emotion}}</p>
+            </div >
+        </div>
+        <div class='row text-start'>
+            <h3>Age Range:</h3>
+            <div class="col-12 col-sm-6">
+                <h4 class="fw-normal" >Low:</h4>
+                <p>{{face.age_low}}</p>
+            </div>
+            <div class="col-12 col-sm-6">
+                <h4 class="fw-normal" >High:</h4>
+                <p>{{face.age_high}}</p>
+            </div>
+        </div>
+            
+    </div>
+         
+         <div class="text-dark">
+        <div class='row text-start'>
+            <h3>Extra Features:</h3>
+            <div class="col-12 col-sm-6">
+                <h4 class="fw-normal" >Has Beard: 🧔 </h4>
+                <p>{% if features.beard %}Yes {% else %} No {% endif %}</p>
+            </div>
+            <div class="col-12 col-sm-6">
+                <h4 class="fw-normal" >Is Smiling: 😁 </h4>
+                <p>{% if features.smile %}Yes {% else %} No {% endif %}</p>
+            </div>
+            <div class="col-12 col-sm-6">
+                <h4 class="fw-normal" >Has Sunglasses: 🕶 </h4>
+                <p>{% if features.sunglasses %}Yes {% else %} No {% endif %}</p>
+            </div>
+            <div class="col-12 col-sm-6">
+                <h4 class="fw-normal" >Has Eyeglasses: 👓  </h4>
+                <p>{% if features.eyeglasses %}Yes {% else %} No {% endif %}</p>
+            </div>
+            <div class="col-12 col-sm-6">
+                <h4 class="fw-normal" >
+                    Has Mustache: <img src="https://img.icons8.com/ios-glyphs/30/000000/english-mustache.png"> 
+                </h4>
+                <p>{% if features.mustache %}Yes {% else %} No {% endif %}</p>
+            </div>
+            <div class="col-12 col-sm-6">
+                <h4 class="fw-normal" >Is Eye Open: 👀 </h4>
+                <p>{% if features.eyes_open %}Yes {% else %} No {% endif %}</p>
+            </div>
+            <div class="col-12 col-sm-6">
+                <h4 class="fw-normal" >Is Mouth Open: 👄 </h4>
+                <p>{% if features.mouth_open %}Yes {% else %} No {% endif %}</p>
+            </div>
+        </div>
+            </div>
+        </div>    
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+

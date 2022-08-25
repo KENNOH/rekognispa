@@ -1,0 +1,39 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %} %}
+
+{% block title %}Register Page{% endblock title %}
+{% block content %}
+
+<section class="min-vh-100">
+  <div class="container ">
+    <div class="row pt-5">
+      <div class="col-xl-8 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+        <img src="{% static 'images/logo-secondary.png' %}" alt="" width="50%">
+        <div class="px-2 my-3">
+          <form method="post" class="justify-content-center">
+            {% csrf_token %}
+            {{ form.non_field_errors }} 
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-2 col-md-4 .col-xl-6 mx-auto"> {{ form.email|as_crispy_field }} </div>
+                <div class="col-xs-2 col-md-4 .col-xl-6 mx-auto">{{ form.username|as_crispy_field }} </div>
+                <div class="col-xs-2 col-md-4 .col-xl-6 mx-auto"> {{ form.first_name|as_crispy_field }} </div>
+                <div class="w-100"></div>
+                <div class="col-xs-2 col-md-4 .col-xl-6 mx-auto"> {{ form.last_name|as_crispy_field }} </div>
+                <div class="col-xs-2 col-md-4 .col-xl-6 mx-auto"> {{ form.password1|as_crispy_field }} </div>
+                <div class="col-xs-2 col-md-4 .col-xl-6 mx-auto"> {{ form.password2|as_crispy_field }} </div>
+              </div>
+            </div>
+            <div >
+              <a href="{% url 'account_reset_password' %}" class="link-light px-2">Forget Password</a>   
+              <a href="{% url 'account_login' %}" class="link-light px-2">Already have an Account?</a>
+            </div>
+            <button type="submit" class="btn btn-light btn-lg my-3">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

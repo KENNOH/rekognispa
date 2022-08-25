@@ -1,0 +1,45 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% if user.is_authenticated %}
+
+<!-- <p><a href="{% url 'account_logout' %}">Log Out</a></p>
+<p><a href="{% url 'face_list' %}">Face Detection</a></p> -->
+{% include '_add_image.html' %}
+
+{% else %}
+<section class="min-vh-100">
+  <div class="container ">
+    <div class="row pt-5">
+      <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+        <img src="{% static 'images/logo-secondary.png' %}" alt="" width="80%">
+        <div class="px-2">
+      <ul class="nav navbar-right justify-content-center mt-3">
+        <li class="nav-item bg-primary mx-1 rounded">
+          <a class="nav-link btn btn-light btn-lg text-dark" href="{% url 'account_login' %}">Log In</a>
+        </li>
+        <li class="nav-item bg-primary mx-1 rounded">
+          <a class="nav-link btn btn-light btn-lg  text-dark" href="{% url 'account_signup' %}">Register</a>
+        </li>
+      </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+<script>
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#image-preview').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+{% endblock %}
+
